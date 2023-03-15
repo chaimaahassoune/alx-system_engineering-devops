@@ -1,3 +1,2 @@
 #!/bin/bash
-result=$((2#$BINARY)
-
+echo "$((2#$BINARY))"

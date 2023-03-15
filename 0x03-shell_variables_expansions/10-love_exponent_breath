@@ -1,2 +1,2 @@
 #!/bin/bash
-result=$(bc <<< "scale=2; $BREATH ^ $LOVE")
+echo $(($BREATH**LOVE))
