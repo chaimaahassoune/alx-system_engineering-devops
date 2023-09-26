@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
-# installs nginx and configures it on a remote server
+# This script installs Nginx on an Ubuntu machine and configures it to meet the specified requirements.
 
-apt-get -y update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
-service nginx start
+# Update package lists and install Nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
+
+# Ensure Nginx is listening on port 80
+sudo sed -i 's/80 default_server/80/' /etc/nginx/sites-available/default
+
+# Create a temporary index.html file with "Hello World!"
+echo "<html><body>Hello World!</body></html>" | sudo tee /var/www/html/index.html > /dev/null
+
+# Restart Nginx to apply changes
+sudo service nginx restart
+
+echo "Nginx is now installed and configured on port 80."
+exit 0
