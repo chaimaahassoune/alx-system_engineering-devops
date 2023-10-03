@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Check if Nginx is installed
+if ! command -v nginx &> /dev/null
+then
+    # Install Nginx if not installed
+    apt-get update
+    apt-get install -y nginx
+fi
+
+# Create custom configuration for the header
+echo "server {
+    listen 80;
+    server_name _;
+
+    location / {
+        add_header X-Served-By \$host;
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+}" > /etc/nginx/sites-available/default
+
+# Restart Nginx
+service nginx restart
+
